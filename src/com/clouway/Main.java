@@ -25,19 +25,50 @@ public class Main {
         Dog dog = new Dog("dogname", 11 , "breed");
         Dog restoredDog = new Dog();
 
+        Person guy = new Person("guy", 12, true);
+        Person restoredPerson = new Person();
+
         try {
             new SaveObject().saveObject(dataOutput, dog);
+            new SaveObject().saveObject(dataOutput, guy);
+            new SaveObject().saveObject(dataOutput,guy);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        GetObject go = new GetObject();
+        Object temp;
+
+/*        if(temp.getClass().isInstance(restoredPerson)) {
+            restoredPerson = (restoredPerson.getClass().cast(temp));
+            System.out.println(restoredPerson.getClass());
+        }*/
+
         try {
-            restoredDog.setAttributesWithAutoCast(new GetObject().getObject(dataInput));
+            assert dataInput != null;
+            for(int i = 0; i < dataInput.available() ; i++) {
+                temp = go.getObject(dataInput);
+                restoredDog.setAttributesWithAutoCast(temp);
+                restoredPerson.setAttributesWithAutoCast(temp);
+            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
         System.out.println(restoredDog.getName());
+        System.out.println(restoredPerson.getName());
+        try {
+            dataInput.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        try {
+            if (dataOutput != null) {
+                dataOutput.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

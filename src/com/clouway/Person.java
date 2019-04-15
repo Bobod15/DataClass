@@ -25,10 +25,12 @@ public class Person implements Serializable,AutoCast {
 
     @Override
     public void setAttributesWithAutoCast(Object newClass) {
-        Person newPerson = (Person) newClass;
+        if(newClass.getClass().isInstance(this)) {
+            Person newPerson = (Person) newClass;
 
-        this.name = newPerson.getName();
-        this.age = newPerson.getAge();
-        this.married = newPerson.isMarried();
+            this.name = newPerson.getName();
+            this.age = newPerson.getAge();
+            this.married = newPerson.isMarried();
+        }
     }
 }
