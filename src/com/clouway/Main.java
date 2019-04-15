@@ -22,22 +22,22 @@ public class Main {
             e.printStackTrace();
         }
 
-        String obj = "assd";
+        Dog dog = new Dog("dogname", 11 , "breed");
+        Dog restoredDog = new Dog();
 
         try {
-            new SaveObject().saveObject(dataOutput, obj);
+            new SaveObject().saveObject(dataOutput, dog);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        String otStream = null;
         try {
-            otStream = String.valueOf(new GetObject().getObject(dataInput));
+            restoredDog.setAttributesWithAutoCast(new GetObject().getObject(dataInput));
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-        System.out.println(otStream);
+        System.out.println(restoredDog.getName());
 
     }
 }
