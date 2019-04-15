@@ -25,10 +25,11 @@ public class Dog implements Serializable, AutoCast {
 
     @Override
     public void setAttributesWithAutoCast(Object newClass) {
-        Dog castedDog = (Dog) newClass;
-
-        this.name = castedDog.getName();
-        this.age = castedDog.getAge();
-        this.breed = castedDog.getBreed();
+        if(newClass.getClass().isInstance(this)) {
+            Dog castedDog = (Dog) newClass;
+            this.name = castedDog.getName();
+            this.age = castedDog.getAge();
+            this.breed = castedDog.getBreed();
+        }
     }
 }
