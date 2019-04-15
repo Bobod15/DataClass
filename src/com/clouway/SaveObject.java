@@ -9,7 +9,6 @@ public class SaveObject {
     }
 
     public void saveObject(OutputStream out , Object obj) throws IOException {
-        ObjectOutputStream objOut = new ObjectOutputStream(out);
-        objOut.writeObject(obj);
+        new ObjectOutputStream(out).writeObject(obj);
     }
 }
